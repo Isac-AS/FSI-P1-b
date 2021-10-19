@@ -98,11 +98,15 @@ def graph_search(problem, fringe):
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     closed = {}
     fringe.append(Node(problem.initial))
+    nodos_visitados = 0
+    nodos_expandidos = 0
     while fringe:
         node = fringe.pop()
+        nodos_visitados += 1
         if problem.goal_test(node.state):
-            return node
+            return node, nodos_expandidos, nodos_visitados
         if node.state not in closed:
+            nodos_expandidos += 1
             closed[node.state] = True
             fringe.extend(node.expand(problem))
     return None
@@ -118,9 +122,14 @@ def depth_first_graph_search(problem):
     return graph_search(problem, Stack())
 
 
-def practica_1b(problem):
+def busqueda_ramificacion_y_salto(problem):
     """Search based on the heuristics discussed in class"""
-    return graph_search(problem, Pract_1b(problem))
+    return graph_search(problem, Ramificacion_y_salto(problem))
+
+
+def busqueda_ramificacion_y_salto_con_subestimacion(problem):
+    """Search based on the heuristics discussed in class"""
+    return graph_search(problem, Ramificacion_y_salto_con_subestimacion(problem))
 
 
 # _____________________________________________________________________________
